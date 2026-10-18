@@ -1,0 +1,20 @@
+{% load static %}
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Ehan ERP{% endblock %} | {{ org.name }}</title>
+<link rel="stylesheet" href="{% static 'workspace/erp.css' %}"></head>
+<body><div class="shell"><aside class="sidebar">
+<div class="brand">EHAN<span>INTERNATIONAL LTD</span></div>
+<div class="side-caption">WORKSPACE</div>
+<nav aria-label="ERP navigation">
+<a class="{% if active == 'dashboard' %}selected{% endif %}" href="{% url 'agency-workspace' org.slug %}">Overview</a>
+<a class="{% if active == 'customers' %}selected{% endif %}" href="{% url 'erp-customers' org.slug %}">Customers & CRM</a>
+<a class="{% if active == 'cases' %}selected{% endif %}" href="{% url 'erp-cases' org.slug %}">Visa & recruitment cases</a>
+<a class="{% if active == 'tasks' %}selected{% endif %}" href="{% url 'erp-tasks' org.slug %}">My tasks</a>
+<a href="{% url 'office-customers' org.slug %}">Office records</a>
+<a href="{% url 'office-cases' org.slug %}">Document custody & timelines</a>
+</nav><div class="side-caption">OTHER MODULES</div>
+<div class="future">Finance · HR · Travel · CMS</div>
+<div class="side-bottom">{{ member.get_role_display }}<br><small>{{ request.user.username }}</small></div>
+</aside><div class="maincol"><header class="topbar"><div><strong>{{ org.name }}</strong><span> / Staff ERP</span></div><div class="top-actions"><a href="/admin/">Technical admin</a><span>{{ request.user.username }}</span></div></header>
+<main class="content">{% block content %}{% endblock %}</main></div></div></body></html>

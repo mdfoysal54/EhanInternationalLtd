@@ -1,0 +1,4 @@
+{% extends 'workspace/base.html' %}{% block title %}My tasks{% endblock %}{% block content %}
+<div class="heading"><div><p class="eyebrow">EMPLOYEE PRODUCTIVITY</p><h1>My tasks</h1><p class="muted">Only tasks assigned to your user account appear here.</p></div></div>
+<section class="panel"><table><thead><tr><th>Task</th><th>Case</th><th>Due date</th><th>Status</th><th>Action</th></tr></thead><tbody>{% for x in records %}<tr><td>{{ x.title }}</td><td><a href="{% url 'office-case' org.slug x.case.pk %}">{{ x.case.reference }}</a></td><td>{{ x.due_on|default:'—' }}</td><td>{% if x.done %}Completed{% else %}Pending{% endif %}</td><td>{% if not x.done %}<form method="post" action="{% url 'erp-task-complete' org.slug x.pk %}">{% csrf_token %}<button>Mark complete</button></form>{% else %}—{% endif %}</td></tr>{% empty %}<tr><td colspan="5" class="muted">No assigned tasks</td></tr>{% endfor %}</tbody></table></section>
+{% endblock %}
